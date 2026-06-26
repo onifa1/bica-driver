@@ -236,7 +236,9 @@ a{text-decoration:none}
 @media(max-width:480px){
   .steps-grid{grid-template-columns:1fr}
   .hero-btns{display:grid;grid-template-columns:1fr 1fr}
-  .btn-store{justify-content:center}
+  .hero-btns .btn-store{justify-content:center;padding:12px 10px;gap:8px}
+  .hero-btns .btn-store span small{font-size:10px}
+  .hero-btns .btn-store span b{font-size:14px}
   .download-btns{flex-direction:column;align-items:flex-start}
 }
 </style>
@@ -289,7 +291,7 @@ a{text-decoration:none}
       </p>
       <div class="hero-btns fu" style="animation-delay:.28s">
         <a href="#download" class="btn-store dark">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="#F4EFE4"><path d="M16.5 1.6c0 1.2-.5 2.4-1.3 3.3-.9 1-2.3 1.7-3.5 1.6-.1-1.2.5-2.4 1.3-3.2.9-1 2.4-1.7 3.5-1.7zM20.3 17c-.6 1.4-.9 2-1.7 3.2-1.1 1.7-2.7 3.8-4.6 3.8-1.7 0-2.1-1.1-4.4-1.1s-2.8 1.1-4.4 1.1c-1.9 0-3.4-1.9-4.5-3.6-3-4.7-3.3-10.2-1.5-13.1 1.3-2.1 3.4-3.3 5.3-3.3 2 0 3.2 1.1 4.8 1.1 1.6 0 2.5-1.1 4.8-1.1 1.7 0 3.5.9 4.8 2.5-4.2 2.3-3.5 8.3.9 9.5z"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#F4EFE4"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
           <span><small>Download on the</small><b>App Store</b></span>
         </a>
         <a href="#download" class="btn-store light">
@@ -493,7 +495,7 @@ a{text-decoration:none}
       <p class="download-sub">Free to download. Free to join. Whether you need a driver or you are one, your next match is a tap away.</p>
       <div class="download-btns">
         <a href="#" class="btn-dl light">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="#0A2414"><path d="M16.5 1.6c0 1.2-.5 2.4-1.3 3.3-.9 1-2.3 1.7-3.5 1.6-.1-1.2.5-2.4 1.3-3.2.9-1 2.4-1.7 3.5-1.7zM20.3 17c-.6 1.4-.9 2-1.7 3.2-1.1 1.7-2.7 3.8-4.6 3.8-1.7 0-2.1-1.1-4.4-1.1s-2.8 1.1-4.4 1.1c-1.9 0-3.4-1.9-4.5-3.6-3-4.7-3.3-10.2-1.5-13.1 1.3-2.1 3.4-3.3 5.3-3.3 2 0 3.2 1.1 4.8 1.1 1.6 0 2.5-1.1 4.8-1.1 1.7 0 3.5.9 4.8 2.5-4.2 2.3-3.5 8.3.9 9.5z"/></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#0A2414"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
           <span><small>Download on the</small><b>App Store</b></span>
         </a>
         <a href="#" class="btn-dl ghost">
