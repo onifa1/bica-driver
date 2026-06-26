@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: #F4EFE4; color: #12251A; font-family: 'Hanken Grotesk', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  ::selection { background: #C8A24E; color: #0A2414; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  @keyframes drawline { from { stroke-dashoffset: 320; } to { stroke-dashoffset: 0; } }
+  .fu { opacity: 0; animation: fadeUp .9s cubic-bezier(.16,.84,.44,1) forwards; }
+</style>
+<script>
+(function(){
+  var EASE='cubic-bezier(.16,.84,.44,1)';
+  function init(){
+    if(window.__bicaReveal) return; window.__bicaReveal=true;
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='none'; io.unobserve(e.target); } });
+    },{threshold:0, rootMargin:'0px 0px -10% 0px'});
+    var seen=new WeakSet();
+    function scan(){
+      document.querySelectorAll('section, footer').forEach(function(el){
+        if(seen.has(el)) return; seen.add(el);
+        el.style.transition='opacity .85s '+EASE+', transform .85s '+EASE;
+        var r=el.getBoundingClientRect();
+        if(r.top < window.innerHeight*0.88){ el.style.opacity='1'; return; }
+        el.style.opacity='0'; el.style.transform='translateY(28px)';
+        io.observe(el);
+      });
+    }
+    scan();
+    var n=0, iv=setInterval(function(){ scan(); if(++n>24) clearInterval(iv); },140);
+  }
+  if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded', init);
+})();
+</script>
+</helmet>
+
+<div style="position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: .035; mix-blend-mode: multiply; background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;);"></div>
+
+<!-- ============ NAV ============ -->
+<nav data-screen-label="Nav" style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 16px clamp(24px, 6vw, 90px); background: rgba(244,239,228,.78); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(18,37,26,.08);">
+  <a href="Bica Driver.dc.html" style="display: flex; align-items: center;"><img src="assets/bicadriver-logo.png" alt="Bica Driver" style="height: 36px; width: auto; display: block;"></a>
+  <div style="display: flex; align-items: center; gap: 30px;">
+    <a href="Bica Driver.dc.html" style="text-decoration: none; color: #0A2414; font-size: 15px; font-weight: 700;">Home</a>
+    <a href="#how" style="text-decoration: none; color: #2C3D31; font-size: 15px; font-weight: 500;">How it works</a>
+    <a href="#features" style="text-decoration: none; color: #2C3D31; font-size: 15px; font-weight: 500;">Features</a>
+    <a href="#safety" style="text-decoration: none; color: #2C3D31; font-size: 15px; font-weight: 500;">Safety</a>
+    <a href="About.dc.html" style="text-decoration: none; color: #2C3D31; font-size: 15px; font-weight: 500;">About</a>
+    <a href="Contact.dc.html" style="text-decoration: none; color: #2C3D31; font-size: 15px; font-weight: 500;">Contact</a>
+    <a href="#download" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; background: #0A2414; color: #F4EFE4; font-size: 14.5px; font-weight: 600; padding: 11px 22px; border-radius: 999px; transition: transform .2s, background .2s;" style-hover="background: #14532D; transform: translateY(-1px);">Get the app</a>
+  </div>
+</nav>
+<div style="height: 68px;"></div>
+
+<!-- ============ HERO ============ -->
+<header data-screen-label="Hero" style="position: relative; padding: clamp(48px, 7vw, 96px) clamp(24px, 6vw, 90px) clamp(40px, 5vw, 72px); overflow: hidden;">
+  <div style="position: absolute; top: -10%; right: -8%; width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, rgba(200,162,78,.16), transparent 65%); pointer-events: none;"></div>
+  <div style="display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(32px, 5vw, 72px); align-items: center; max-width: 1280px; margin: 0 auto; position: relative;">
+    <!-- left -->
+    <div>
+      <div class="fu" style="animation-delay: .05s; display: inline-flex; align-items: center; gap: 9px; padding: 7px 15px 7px 11px; border: 1px solid rgba(200,162,78,.45); border-radius: 999px; background: rgba(200,162,78,.08); margin-bottom: 26px;">
+        <span style="width: 7px; height: 7px; border-radius: 50%; background: #1F8A4C; box-shadow: 0 0 0 3px rgba(31,138,76,.18);"></span>
+        <span style="font-size: 13px; font-weight: 600; letter-spacing: .02em; color: #6E5618;">Now live across Lagos &amp; Abuja</span>
+      </div>
+      <h1 class="fu" style="animation-delay: .12s; font-family: 'Spectral', serif; font-weight: 500; font-size: clamp(40px, 5.4vw, 76px); line-height: 1.02; letter-spacing: -.025em; color: #0A2414;">
+        Your car deserves<br>a driver you can<br><span style="font-style: italic; color: #14532D;">actually</span> trust.
+      </h1>
+      <p class="fu" style="animation-delay: .2s; margin-top: 26px; font-size: clamp(16px, 1.4vw, 19px); line-height: 1.6; color: #44574A; max-width: 480px;">
+        Bica Driver connects car owners with verified, background checked professional drivers, and gives skilled drivers steady, well paid work. Match in minutes, ride with confidence.
+      </p>
+      <div class="fu" style="animation-delay: .28s; display: flex; gap: 14px; margin-top: 34px; flex-wrap: wrap;">
+        <a href="#download" style="text-decoration: none; display: inline-flex; align-items: center; gap: 12px; background: #0A2414; color: #F4EFE4; padding: 14px 22px; border-radius: 14px; transition: transform .2s, box-shadow .2s; box-shadow: 0 8px 24px rgba(10,36,20,.22);" style-hover="transform: translateY(-2px); box-shadow: 0 14px 32px rgba(10,36,20,.3);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#F4EFE4"><path d="M16.5 1.6c0 1.2-.5 2.4-1.3 3.3-.9 1-2.3 1.7-3.5 1.6-.1-1.2.5-2.4 1.3-3.2.9-1 2.4-1.7 3.5-1.7zM20.3 17c-.6 1.4-.9 2-1.7 3.2-1.1 1.7-2.7 3.8-4.6 3.8-1.7 0-2.1-1.1-4.4-1.1s-2.8 1.1-4.4 1.1c-1.9 0-3.4-1.9-4.5-3.6-3-4.7-3.3-10.2-1.5-13.1 1.3-2.1 3.4-3.3 5.3-3.3 2 0 3.2 1.1 4.8 1.1 1.6 0 2.5-1.1 4.8-1.1 1.7 0 3.5.9 4.8 2.5-4.2 2.3-3.5 8.3.9 9.5z"/></svg>
+          <span style="text-align: left; line-height: 1.1;"><span style="display: block; font-size: 11px; opacity: .75; font-weight: 500;">Download on the</span><span style="font-size: 17px; font-weight: 700;">App Store</span></span>
+        </a>
+        <a href="#download" style="text-decoration: none; display: inline-flex; align-items: center; gap: 12px; background: transparent; color: #0A2414; padding: 14px 22px; border-radius: 14px; border: 1.5px solid rgba(10,36,20,.22); transition: transform .2s, border-color .2s;" style-hover="transform: translateY(-2px); border-color: rgba(10,36,20,.5);">
+          <svg width="20" height="22" viewBox="0 0 24 24"><path d="M3.6 1.8c-.3.3-.5.8-.5 1.4v17.6c0 .6.2 1.1.5 1.4l.1.1L13.5 12.4v-.2L3.7 1.7l-.1.1z" fill="#0A2414"/><path d="M16.8 15.8l-3.3-3.3v-.2l3.3-3.3.1.1 3.9 2.2c1.1.6 1.1 1.7 0 2.3l-4 2.2z" fill="#C8A24E"/><path d="M16.9 15.7L13.5 12.3 3.6 22.2c.4.4 1 .4 1.7.1l11.6-6.6" fill="#1F8A4C"/><path d="M16.9 8.9L5.3 2.3c-.7-.4-1.3-.3-1.7.1l9.9 9.9 3.4-3.4z" fill="#2E7D5B"/></svg>
+          <span style="text-align: left; line-height: 1.1;"><span style="display: block; font-size: 11px; opacity: .7; font-weight: 500;">Get it on</span><span style="font-size: 17px; font-weight: 700;">Google Play</span></span>
+        </a>
+      </div>
+      <div class="fu" style="animation-delay: .36s; display: flex; align-items: center; gap: 18px; margin-top: 34px;">
+        <div style="display: flex;">
+          <span style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid #F4EFE4; background: linear-gradient(135deg,#1F8A4C,#0A2414); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 13px;">A</span>
+          <span style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid #F4EFE4; margin-left: -12px; background: linear-gradient(135deg,#C8A24E,#6E5618); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 13px;">K</span>
+          <span style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid #F4EFE4; margin-left: -12px; background: linear-gradient(135deg,#2E7D5B,#14532D); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 13px;">T</span>
+        </div>
+        <div>
+          <div style="display: flex; gap: 2px; color: #C8A24E;">★★★★★</div>
+          <div style="font-size: 13.5px; color: #44574A; margin-top: 2px;"><strong style="color:#0A2414;">12,000+</strong> rides matched this month</div>
+        </div>
+      </div>
+    </div>
+    <!-- right: phone -->
+    <div class="fu" style="animation-delay: .3s; display: flex; justify-content: center; position: relative;">
+      <div style="position: absolute; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(20,83,45,.1), transparent 70%);"></div>
+      <div style="position: relative; width: 300px; animation: floaty 6s ease-in-out infinite;">
+        <div style="background: #0A2414; border-radius: 44px; padding: 11px; box-shadow: 0 40px 80px -20px rgba(10,36,20,.5), 0 0 0 2px rgba(200,162,78,.25);">
+          <div style="background: #EFEAE0; border-radius: 34px; overflow: hidden; height: 600px; position: relative;">
+            <!-- status bar -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 22px 6px; font-size: 13px; font-weight: 600; color: #0A2414;">
+              <span>9:41</span>
+              <span style="display: flex; gap: 5px; align-items: center;">
+                <svg width="17" height="11" viewBox="0 0 17 11" fill="#0A2414"><rect x="0" y="6" width="3" height="5" rx="1"/><rect x="4.5" y="3.5" width="3" height="7.5" rx="1"/><rect x="9" y="1" width="3" height="10" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1" opacity=".4"/></svg>
+                <svg width="22" height="11" viewBox="0 0 22 11" fill="none"><rect x=".5" y=".5" width="18" height="10" rx="2.5" stroke="#0A2414" opacity=".5"/><rect x="2" y="2" width="14" height="7" rx="1.5" fill="#0A2414"/><rect x="20" y="3.5" width="1.5" height="4" rx=".7" fill="#0A2414" opacity=".5"/></svg>
+              </span>
+            </div>
+            <!-- map -->
+            <div style="height: 250px; margin: 6px 14px 0; border-radius: 22px; position: relative; overflow: hidden; background: linear-gradient(160deg, #DDE6DC, #C9D8C8);">
+              <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(10,36,20,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(10,36,20,.06) 1px, transparent 1px); background-size: 28px 28px;"></div>
+              <svg width="100%" height="100%" viewBox="0 0 272 250" style="position: absolute; inset: 0;">
+                <path d="M40 215 C 90 180, 70 120, 130 110 S 220 70, 235 35" fill="none" stroke="#14532D" stroke-width="4" stroke-linecap="round" stroke-dasharray="320" style="animation: drawline 2.4s ease forwards .6s; stroke-dashoffset: 320;"/>
+                <circle cx="40" cy="215" r="7" fill="#C8A24E" stroke="#fff" stroke-width="3"/>
+                <circle cx="235" cy="35" r="8" fill="#14532D" stroke="#fff" stroke-width="3"/>
+              </svg>
+              <div style="position: absolute; bottom: 12px; left: 12px; background: rgba(255,255,255,.92); backdrop-filter: blur(4px); padding: 7px 12px; border-radius: 10px; font-size: 12px; font-weight: 600; color: #0A2414; box-shadow: 0 4px 12px rgba(0,0,0,.1);">⏱ Arrives in 6 min</div>
+            </div>
+            <!-- driver card -->
+            <div style="margin: 14px; background: #fff; border-radius: 22px; padding: 16px; box-shadow: 0 12px 30px rgba(10,36,20,.1);">
+              <div style="display: flex; align-items: center; gap: 13px;">
+                <div style="width: 52px; height: 52px; border-radius: 16px; background: linear-gradient(135deg,#1F8A4C,#0A2414); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 19px; position: relative;">EO
+                  <span style="position: absolute; bottom: -4px; right: -4px; width: 20px; height: 20px; border-radius: 50%; background: #C8A24E; border: 2px solid #fff; display: flex; align-items: center; justify-content: center;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#0A2414" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </div>
+                <div style="flex: 1;">
+                  <div style="display: flex; align-items: center; gap: 6px;"><span style="font-weight: 700; font-size: 16px; color: #0A2414;">Emeka O.</span></div>
+                  <div style="font-size: 12.5px; color: #6B7A70; margin-top: 1px;">★ 4.9 · 8 yrs pro · Verified</div>
+                </div>
+                <span style="font-size: 12px; font-weight: 700; color: #1F8A4C; background: rgba(31,138,76,.1); padding: 5px 10px; border-radius: 8px;">Matched</span>
+              </div>
+              <div style="display: flex; gap: 9px; margin-top: 14px;">
+                <button style="flex: 1; border: none; background: #0A2414; color: #F4EFE4; font-family: inherit; font-weight: 600; font-size: 14px; padding: 12px; border-radius: 12px; cursor: pointer;">Confirm driver</button>
+                <button style="width: 46px; border: 1.5px solid rgba(10,36,20,.15); background: #fff; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 5.5C3 4.7 3.7 4 4.5 4h2.6c.6 0 1.2.4 1.4 1l1 3c.2.6 0 1.2-.5 1.6L7.8 11c1 2 2.7 3.7 4.7 4.7l1.4-1.7c.4-.5 1-.7 1.6-.5l3 1c.6.2 1 .8 1 1.4v2.6c0 .8-.7 1.5-1.5 1.5C10.6 20.5 3 12.9 3 5.5z" fill="#14532D"/></svg></button>
+              </div>
+            </div>
+            <!-- bottom nav -->
+            <div style="position: absolute; bottom: 0; left: 0; right: 0; display: flex; justify-content: space-around; padding: 14px 0 20px; background: #fff; border-top: 1px solid rgba(10,36,20,.06);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#0A2414"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6h-6v6H4a1 1 0 01-1-1z"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9AA89E" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9AA89E" stroke-width="2"><path d="M12 21s-7-4.5-7-10a7 7 0 0114 0c0 5.5-7 10-7 10z"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9AA89E" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+            </div>
+          </div>
+        </div>
+        <!-- floating badge -->
+        <div style="position: absolute; top: 80px; left: -54px; background: #fff; border-radius: 16px; padding: 12px 15px; box-shadow: 0 16px 36px rgba(10,36,20,.18); display: flex; align-items: center; gap: 11px;">
+          <span style="width: 36px; height: 36px; border-radius: 11px; background: rgba(31,138,76,.12); display: flex; align-items: center; justify-content: center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z" fill="#1F8A4C"/><path d="M8.5 12l2.3 2.3L16 9.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><div style="font-size: 12.5px; font-weight: 700; color: #0A2414;">Background</div><div style="font-size: 11px; color: #6B7A70;">verified ✓</div></div>
+        </div>
+        <div style="position: absolute; bottom: 130px; right: -48px; background: #0A2414; color: #fff; border-radius: 16px; padding: 12px 15px; box-shadow: 0 16px 36px rgba(10,36,20,.28);">
+          <div style="font-size: 11px; color: #C8A24E; font-weight: 600;">Driver earnings</div>
+          <div style="font-size: 18px; font-weight: 800; font-family: 'Spectral', serif;">₦185k<span style="font-size: 12px; font-weight: 500; color: #9DB0A2;">/wk</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ STATS STRIP ============ -->
+<section style="border-top: 1px solid rgba(18,37,26,.1); border-bottom: 1px solid rgba(18,37,26,.1); background: rgba(255,255,255,.4);">
+  <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); padding: clamp(28px, 3vw, 44px) clamp(24px, 6vw, 90px);">
+    <div style="text-align: center; border-right: 1px solid rgba(18,37,26,.1);"><div style="font-family: 'Spectral', serif; font-size: clamp(30px,3.4vw,46px); font-weight: 600; color: #0A2414;">12k+</div><div style="font-size: 13.5px; color: #5C6B5F; margin-top: 4px;">Monthly matches</div></div>
+    <div style="text-align: center; border-right: 1px solid rgba(18,37,26,.1);"><div style="font-family: 'Spectral', serif; font-size: clamp(30px,3.4vw,46px); font-weight: 600; color: #0A2414;">4,800</div><div style="font-size: 13.5px; color: #5C6B5F; margin-top: 4px;">Verified drivers</div></div>
+    <div style="text-align: center; border-right: 1px solid rgba(18,37,26,.1);"><div style="font-family: 'Spectral', serif; font-size: clamp(30px,3.4vw,46px); font-weight: 600; color: #0A2414;">4.9★</div><div style="font-size: 13.5px; color: #5C6B5F; margin-top: 4px;">Average rating</div></div>
+    <div style="text-align: center;"><div style="font-family: 'Spectral', serif; font-size: clamp(30px,3.4vw,46px); font-weight: 600; color: #0A2414;">6 min</div><div style="font-size: 13.5px; color: #5C6B5F; margin-top: 4px;">Avg. match time</div></div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section id="features" data-screen-label="Features" style="scroll-margin-top: 84px; padding: clamp(64px, 8vw, 120px) clamp(24px, 6vw, 90px); max-width: 1280px; margin: 0 auto;">
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 54px;">
+    <div>
+      <div style="font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #C8A24E; margin-bottom: 16px;">Why Bica Driver</div>
+      <h2 style="font-family: 'Spectral', serif; font-weight: 500; font-size: clamp(30px, 3.8vw, 52px); line-height: 1.06; letter-spacing: -.02em; color: #0A2414; max-width: 620px;">Everything a premium ride should be, minus the guesswork.</h2>
+    </div>
+    <p style="font-size: 16px; line-height: 1.6; color: #44574A; max-width: 320px;">Built for car owners who want peace of mind, and for drivers who want dignity in their work.</p>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;">
+    <div style="background: #fff; border: 1px solid rgba(18,37,26,.07); border-radius: 22px; padding: 30px; transition: transform .25s, box-shadow .25s;" style-hover="transform: translateY(-4px); box-shadow: 0 24px 48px -20px rgba(10,36,20,.2);">
+      <div style="width: 52px; height: 52px; border-radius: 15px; background: #0A2414; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z" fill="#C8A24E"/><path d="M8.5 12l2.3 2.3L16 9.5" stroke="#0A2414" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h3 style="font-family: 'Spectral', serif; font-size: 23px; font-weight: 600; color: #0A2414; margin-bottom: 10px;">Verified, every time</h3>
+      <p style="font-size: 15px; line-height: 1.6; color: #516256;">Every driver passes ID, license, and criminal record checks before they ever appear in your feed. No exceptions.</p>
+    </div>
+    <div style="background: #fff; border: 1px solid rgba(18,37,26,.07); border-radius: 22px; padding: 30px; transition: transform .25s, box-shadow .25s;" style-hover="transform: translateY(-4px); box-shadow: 0 24px 48px -20px rgba(10,36,20,.2);">
+      <div style="width: 52px; height: 52px; border-radius: 15px; background: #0A2414; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M13 2L4.5 13.5H11l-1 8.5L19.5 10H13l0-8z" fill="#C8A24E"/></svg></div>
+      <h3 style="font-family: 'Spectral', serif; font-size: 23px; font-weight: 600; color: #0A2414; margin-bottom: 10px;">Matched in minutes</h3>
+      <p style="font-size: 15px; line-height: 1.6; color: #516256;">Smart matching pairs you with nearby drivers who fit your schedule, route, and vehicle type, usually within six minutes.</p>
+    </div>
+    <div style="background: #fff; border: 1px solid rgba(18,37,26,.07); border-radius: 22px; padding: 30px; transition: transform .25s, box-shadow .25s;" style-hover="transform: translateY(-4px); box-shadow: 0 24px 48px -20px rgba(10,36,20,.2);">
+      <div style="width: 52px; height: 52px; border-radius: 15px; background: #0A2414; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#C8A24E" stroke-width="2"/><path d="M12 7v5l3 2" stroke="#C8A24E" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <h3 style="font-family: 'Spectral', serif; font-size: 23px; font-weight: 600; color: #0A2414; margin-bottom: 10px;">Live trip tracking</h3>
+      <p style="font-size: 15px; line-height: 1.6; color: #516256;">Follow every journey in real time and share your live location with family. Help is one tap away if you need it.</p>
+    </div>
+    <div style="background: #fff; border: 1px solid rgba(18,37,26,.07); border-radius: 22px; padding: 30px; transition: transform .25s, box-shadow .25s;" style-hover="transform: translateY(-4px); box-shadow: 0 24px 48px -20px rgba(10,36,20,.2);">
+      <div style="width: 52px; height: 52px; border-radius: 15px; background: #0A2414; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="#C8A24E" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <h3 style="font-family: 'Spectral', serif; font-size: 23px; font-weight: 600; color: #0A2414; margin-bottom: 10px;">Fair, upfront pricing</h3>
+      <p style="font-size: 15px; line-height: 1.6; color: #516256;">See the full cost before you confirm. Drivers keep more of what they earn, and you never face surprise surge fees.</p>
+    </div>
+    <div style="background: #fff; border: 1px solid rgba(18,37,26,.07); border-radius: 22px; padding: 30px; transition: transform .25s, box-shadow .25s;" style-hover="transform: translateY(-4px); box-shadow: 0 24px 48px -20px rgba(10,36,20,.2);">
+      <div style="width: 52px; height: 52px; border-radius: 15px; background: #0A2414; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M16 4h3a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5a1 1 0 011-1h3" stroke="#C8A24E" stroke-width="2"/><rect x="8" y="2.5" width="8" height="4" rx="1.4" stroke="#C8A24E" stroke-width="2"/><path d="M8.5 13l2 2 4-4.5" stroke="#C8A24E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h3 style="font-family: 'Spectral', serif; font-size: 23px; font-weight: 600; color: #0A2414; margin-bottom: 10px;">Hire by the hour or day</h3>
+      <p style="font-size: 15px; line-height: 1.6; color: #516256;">Need a driver for a single errand or a full week? Book flexible blocks and rebook your favourites with one tap.</p>
+    </div>
+    <div style="background: linear-gradient(150deg,#0A2414,#14532D); border-radius: 22px; padding: 30px; color: #fff; position: relative; overflow: hidden;">
+      <div style="position: absolute; top: -30px; right: -30px; width: 140px; height: 140px; border-radius: 50%; background: rgba(200,162,78,.18);"></div>
+      <div style="width: 52px; height: 52px; border-radius: 15px; background: rgba(200,162,78,.18); display: flex; align-items: center; justify-content: center; margin-bottom: 22px; position: relative;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.6 6.5L21 9l-5 4.3L17.5 21 12 17l-5.5 4L8 13.3 3 9l6.4-.5L12 2z" fill="#C8A24E"/></svg></div>
+      <h3 style="font-family: 'Spectral', serif; font-size: 23px; font-weight: 600; margin-bottom: 10px; position: relative;">A driver community</h3>
+      <p style="font-size: 15px; line-height: 1.6; color: #C9D6CB; position: relative;">Drivers earn ratings, badges, and loyal clients. The best build a reputation, and a real career, on Bica.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS (dark) ============ -->
+<section id="how" data-screen-label="How it works" style="scroll-margin-top: 84px; background: #0A2414; color: #F4EFE4; position: relative; overflow: hidden;">
+  <div style="position: absolute; inset: 0; background-image: radial-gradient(circle at 20% 20%, rgba(200,162,78,.1), transparent 40%); pointer-events: none;"></div>
+  <div style="max-width: 1280px; margin: 0 auto; padding: clamp(64px, 8vw, 120px) clamp(24px, 6vw, 90px); position: relative;">
+    <div style="text-align: center; margin-bottom: 18px;">
+      <div style="font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #C8A24E; margin-bottom: 16px;">How it works</div>
+      <h2 style="font-family: 'Spectral', serif; font-weight: 500; font-size: clamp(30px, 3.8vw, 52px); line-height: 1.08; letter-spacing: -.02em;">From download to driving off in four steps.</h2>
+    </div>
+    <!-- toggle -->
+    <div style="display: flex; justify-content: center; margin: 36px 0 56px;">
+      <div style="display: inline-flex; padding: 5px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 999px;">
+        <button onClick="{{ setOwner }}" style="{{ ownerBtn }}">I own a car</button>
+        <button onClick="{{ setDriver }}" style="{{ driverBtn }}">I'm a driver</button>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+      <sc-for list="{{ steps }}" as="step" hint-placeholder-count="4">
+        <div style="position: relative;">
+          <div style="font-family: 'Spectral', serif; font-size: 15px; font-weight: 600; color: #C8A24E; letter-spacing: .1em;">{{ step.num }}</div>
+          <div style="height: 1px; background: linear-gradient(90deg, rgba(200,162,78,.5), transparent); margin: 14px 0 22px;"></div>
+          <h3 style="font-family: 'Spectral', serif; font-size: 22px; font-weight: 600; margin-bottom: 10px; min-height: 56px;">{{ step.title }}</h3>
+          <p style="font-size: 14.5px; line-height: 1.6; color: #B6C5B9;">{{ step.body }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SAFETY ============ -->
+<section id="safety" data-screen-label="Safety" style="scroll-margin-top: 84px; padding: clamp(64px, 8vw, 120px) clamp(24px, 6vw, 90px); max-width: 1280px; margin: 0 auto;">
+  <div style="display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(36px, 5vw, 80px); align-items: center;">
+    <div>
+      <div style="font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #C8A24E; margin-bottom: 16px;">Trust &amp; safety</div>
+      <h2 style="font-family: 'Spectral', serif; font-weight: 500; font-size: clamp(30px, 3.6vw, 50px); line-height: 1.08; letter-spacing: -.02em; color: #0A2414; margin-bottom: 22px;">Safety isn't a feature. It's the whole foundation.</h2>
+      <p style="font-size: 16.5px; line-height: 1.65; color: #44574A; margin-bottom: 30px;">We screen harder than anyone in the market. Every driver is identity verified, vetted, and continuously rated, so the person behind the wheel is someone you'd trust with your keys.</p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <span style="display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid rgba(18,37,26,.1); padding: 10px 16px; border-radius: 999px; font-size: 14px; font-weight: 600; color: #0A2414;"><span style="color:#1F8A4C;">●</span> ID verified</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid rgba(18,37,26,.1); padding: 10px 16px; border-radius: 999px; font-size: 14px; font-weight: 600; color: #0A2414;"><span style="color:#1F8A4C;">●</span> Background checked</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid rgba(18,37,26,.1); padding: 10px 16px; border-radius: 999px; font-size: 14px; font-weight: 600; color: #0A2414;"><span style="color:#1F8A4C;">●</span> Licensed</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid rgba(18,37,26,.1); padding: 10px 16px; border-radius: 999px; font-size: 14px; font-weight: 600; color: #0A2414;"><span style="color:#1F8A4C;">●</span> 24/7 support</span>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+      <div style="background: #0A2414; color: #fff; border-radius: 20px; padding: 26px; grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between; min-height: 280px;">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z" fill="#C8A24E"/><path d="M8.5 12l2.3 2.3L16 9.5" stroke="#0A2414" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><div style="font-family: 'Spectral', serif; font-size: 40px; font-weight: 600;">100%</div><div style="font-size: 14px; color: #B6C5B9; margin-top: 4px;">of drivers complete a full verification before their first ride.</div></div>
+      </div>
+      <div style="background: #fff; border: 1px solid rgba(18,37,26,.08); border-radius: 20px; padding: 24px;">
+        <div style="font-family: 'Spectral', serif; font-size: 32px; font-weight: 600; color: #0A2414;">SOS</div>
+        <div style="font-size: 13.5px; color: #516256; margin-top: 6px;">In app emergency button connects to support &amp; trusted contacts instantly.</div>
+      </div>
+      <div style="background: #fff; border: 1px solid rgba(18,37,26,.08); border-radius: 20px; padding: 24px;">
+        <div style="font-family: 'Spectral', serif; font-size: 32px; font-weight: 600; color: #0A2414;">₦5M</div>
+        <div style="font-size: 13.5px; color: #516256; margin-top: 6px;">Insurance cover on every booked journey, at no extra cost.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" data-screen-label="FAQ" style="scroll-margin-top: 84px; background: rgba(255,255,255,.45); border-top: 1px solid rgba(18,37,26,.08);">
+  <div style="max-width: 900px; margin: 0 auto; padding: clamp(64px, 8vw, 110px) clamp(24px, 6vw, 90px);">
+    <div style="text-align: center; margin-bottom: 50px;">
+      <div style="font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #C8A24E; margin-bottom: 16px;">Questions</div>
+      <h2 style="font-family: 'Spectral', serif; font-weight: 500; font-size: clamp(30px, 3.8vw, 50px); line-height: 1.08; letter-spacing: -.02em; color: #0A2414;">Good to know before you ride.</h2>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      <sc-for list="{{ faqs }}" as="item" hint-placeholder-count="5">
+        <div style="background: #fff; border: 1px solid rgba(18,37,26,.09); border-radius: 16px; overflow: hidden;">
+          <button onClick="{{ item.toggle }}" style="width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 26px; background: none; border: none; cursor: pointer; text-align: left; font-family: inherit;">
+            <span style="font-size: 17.5px; font-weight: 600; color: #0A2414;">{{ item.q }}</span>
+            <span style="flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: #F4EFE4; display: flex; align-items: center; justify-content: center; transition: transform .3s; transform: {{ item.rot }};"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0A2414" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <sc-if value="{{ item.open }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 0 26px 24px; font-size: 15.5px; line-height: 1.65; color: #44574A; max-width: 680px;">{{ item.a }}</div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOWNLOAD CTA ============ -->
+<section id="download" data-screen-label="Download" style="scroll-margin-top: 84px; padding: clamp(40px, 6vw, 90px) clamp(24px, 6vw, 90px);">
+  <div style="max-width: 1280px; margin: 0 auto; background: linear-gradient(140deg,#0A2414,#14532D); border-radius: 34px; padding: clamp(48px, 6vw, 86px) clamp(32px, 6vw, 80px); position: relative; overflow: hidden;">
+    <div style="position: absolute; top: -60px; right: -40px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(200,162,78,.22), transparent 65%);"></div>
+    <div style="position: absolute; bottom: -80px; left: 10%; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(31,138,76,.25), transparent 65%);"></div>
+    <div style="position: relative; max-width: 620px;">
+      <div style="font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #C8A24E; margin-bottom: 18px;">Get started</div>
+      <h2 style="font-family: 'Spectral', serif; font-weight: 500; font-size: clamp(34px, 4.6vw, 62px); line-height: 1.04; letter-spacing: -.025em; color: #F4EFE4;">Download Bica Driver and ride on your terms.</h2>
+      <p style="font-size: 17px; line-height: 1.6; color: #B6C5B9; margin-top: 22px; max-width: 480px;">Free to download. Free to join. Whether you need a driver or you are one, your next match is a tap away.</p>
+      <div style="display: flex; gap: 14px; margin-top: 38px; flex-wrap: wrap;">
+        <a href="#" style="text-decoration: none; display: inline-flex; align-items: center; gap: 12px; background: #F4EFE4; color: #0A2414; padding: 15px 26px; border-radius: 14px; transition: transform .2s;" style-hover="transform: translateY(-2px);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#0A2414"><path d="M16.5 1.6c0 1.2-.5 2.4-1.3 3.3-.9 1-2.3 1.7-3.5 1.6-.1-1.2.5-2.4 1.3-3.2.9-1 2.4-1.7 3.5-1.7zM20.3 17c-.6 1.4-.9 2-1.7 3.2-1.1 1.7-2.7 3.8-4.6 3.8-1.7 0-2.1-1.1-4.4-1.1s-2.8 1.1-4.4 1.1c-1.9 0-3.4-1.9-4.5-3.6-3-4.7-3.3-10.2-1.5-13.1 1.3-2.1 3.4-3.3 5.3-3.3 2 0 3.2 1.1 4.8 1.1 1.6 0 2.5-1.1 4.8-1.1 1.7 0 3.5.9 4.8 2.5-4.2 2.3-3.5 8.3.9 9.5z"/></svg>
+          <span style="text-align: left; line-height: 1.1;"><span style="display: block; font-size: 11px; opacity: .7; font-weight: 500;">Download on the</span><span style="font-size: 17px; font-weight: 700;">App Store</span></span>
+        </a>
+        <a href="#" style="text-decoration: none; display: inline-flex; align-items: center; gap: 12px; background: rgba(244,239,228,.1); border: 1.5px solid rgba(244,239,228,.3); color: #F4EFE4; padding: 15px 26px; border-radius: 14px; transition: transform .2s;" style-hover="transform: translateY(-2px);">
+          <svg width="20" height="22" viewBox="0 0 24 24"><path d="M3.6 1.8c-.3.3-.5.8-.5 1.4v17.6c0 .6.2 1.1.5 1.4l.1.1L13.5 12.4v-.2L3.7 1.7l-.1.1z" fill="#F4EFE4"/><path d="M16.8 15.8l-3.3-3.3v-.2l3.3-3.3.1.1 3.9 2.2c1.1.6 1.1 1.7 0 2.3l-4 2.2z" fill="#C8A24E"/><path d="M16.9 15.7L13.5 12.3 3.6 22.2c.4.4 1 .4 1.7.1l11.6-6.6" fill="#1F8A4C"/><path d="M16.9 8.9L5.3 2.3c-.7-.4-1.3-.3-1.7.1l9.9 9.9 3.4-3.4z" fill="#6FCB97"/></svg>
+          <span style="text-align: left; line-height: 1.1;"><span style="display: block; font-size: 11px; opacity: .7; font-weight: 500;">Get it on</span><span style="font-size: 17px; font-weight: 700;">Google Play</span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer data-screen-label="Footer" style="background: #0A2414; color: #B6C5B9; padding: clamp(56px, 7vw, 90px) clamp(24px, 6vw, 90px) 36px;">
+  <div style="max-width: 1280px; margin: 0 auto;">
+    <div style="display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 50px; border-bottom: 1px solid rgba(244,239,228,.12);">
+      <div>
+        <div style="display: inline-flex; align-items: center; background: #F4EFE4; padding: 10px 16px; border-radius: 12px; margin-bottom: 20px;"><img src="assets/bicadriver-logo.png" alt="Bica Driver" style="height: 34px; width: auto; display: block;"></div>
+        <p style="font-size: 14.5px; line-height: 1.6; max-width: 300px;">Connecting car owners with verified professional drivers across Nigeria. Connect. Drive. Thrive.</p>
+        <div style="display: flex; gap: 12px; margin-top: 24px;">
+          <a href="#" style="width: 40px; height: 40px; border-radius: 11px; background: rgba(244,239,228,.08); display: flex; align-items: center; justify-content: center; transition: background .2s;" style-hover="background: rgba(200,162,78,.2);"><svg width="18" height="18" viewBox="0 0 24 24" fill="#B6C5B9"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0022 12z"/></svg></a>
+          <a href="#" style="width: 40px; height: 40px; border-radius: 11px; background: rgba(244,239,228,.08); display: flex; align-items: center; justify-content: center; transition: background .2s;" style-hover="background: rgba(200,162,78,.2);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B6C5B9" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#B6C5B9"/></svg></a>
+          <a href="#" style="width: 40px; height: 40px; border-radius: 11px; background: rgba(244,239,228,.08); display: flex; align-items: center; justify-content: center; transition: background .2s;" style-hover="background: rgba(200,162,78,.2);"><svg width="18" height="18" viewBox="0 0 24 24" fill="#B6C5B9"><path d="M18.2 2H21l-6.4 7.3L22 22h-6l-4.7-6.1L5.9 22H3l6.8-7.8L2 2h6.2l4.2 5.6L18.2 2zm-1 18h1.6L7.9 3.7H6.1L17.2 20z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #F4EFE4; margin-bottom: 18px;">Product</div>
+        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14.5px;"><a href="#features" style="color: #B6C5B9; text-decoration: none;">Features</a><a href="#how" style="color: #B6C5B9; text-decoration: none;">How it works</a><a href="#safety" style="color: #B6C5B9; text-decoration: none;">Safety</a><a href="#download" style="color: #B6C5B9; text-decoration: none;">Download</a></div>
+      </div>
+      <div>
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #F4EFE4; margin-bottom: 18px;">For drivers</div>
+        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14.5px;"><a href="#" style="color: #B6C5B9; text-decoration: none;">Become a driver</a><a href="#" style="color: #B6C5B9; text-decoration: none;">Earnings</a><a href="#" style="color: #B6C5B9; text-decoration: none;">Driver app</a><a href="#" style="color: #B6C5B9; text-decoration: none;">Requirements</a></div>
+      </div>
+      <div>
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #F4EFE4; margin-bottom: 18px;">Company</div>
+        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14.5px;"><a href="About.dc.html" style="color: #B6C5B9; text-decoration: none;">About</a><a href="Contact.dc.html" style="color: #B6C5B9; text-decoration: none;">Contact</a><a href="#" style="color: #B6C5B9; text-decoration: none;">Privacy</a><a href="#" style="color: #B6C5B9; text-decoration: none;">Terms</a></div>
+      </div>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 28px; flex-wrap: wrap; gap: 14px; font-size: 13.5px;">
+      <span>© 2026 Bica Driver. All rights reserved.</span>
+      <span>Made in Lagos, Nigeria 🇳🇬</span>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    audience: 'owner',
+    open: 0,
+    faqs: [
+      { q: 'Is Bica Driver available in my city?', a: 'We are live across Lagos and Abuja, with Port Harcourt and Ibadan rolling out next. Open the app to see whether matching is active at your exact location.' },
+      { q: 'How are drivers verified?', a: 'Every driver completes a thorough check: government ID, valid driver\u2019s licence, a criminal record screening, and an in person interview. Only after passing all four do they appear in your feed.' },
+      { q: 'Can I book the same driver again?', a: 'Yes. Tap the heart on any trip to save a driver to your favourites, then rebook them in one tap whenever they\u2019re available, great for school runs and regular commutes.' },
+      { q: 'How does pricing work?', a: 'You see the full, upfront price before confirming, with no surge and no hidden fees. You can book by the hour, the day, or per trip, and pay securely in the app.' },
+      { q: 'I\u2019m a driver. How do I earn?', a: 'Sign up, pass verification, and start accepting nearby requests that fit your schedule. You keep the large majority of each fare, get paid weekly, and build a rating that brings in repeat clients.' }
+    ]
+  };
+
+  renderVals() {
+    const isOwner = this.state.audience === 'owner';
+    const activeBtn = 'font-family: inherit; cursor: pointer; border: none; padding: 11px 26px; border-radius: 999px; font-size: 15px; font-weight: 600; background: #C8A24E; color: #0A2414; transition: all .25s;';
+    const idleBtn = 'font-family: inherit; cursor: pointer; border: none; padding: 11px 26px; border-radius: 999px; font-size: 15px; font-weight: 600; background: transparent; color: #B6C5B9; transition: all .25s;';
+
+    const ownerSteps = [
+      { num: '01', title: 'Download & verify', body: 'Get the app, confirm your number, and add the car you\u2019d like driven, in under two minutes.' },
+      { num: '02', title: 'Request a driver', body: 'Set your route, dates and vehicle type. Our matching finds verified drivers near you instantly.' },
+      { num: '03', title: 'Review & confirm', body: 'Compare ratings, experience and price. Pick the driver you trust and confirm the booking.' },
+      { num: '04', title: 'Ride & rate', body: 'Track the trip live, pay securely in the app, and rate your driver to help the community.' }
+    ];
+    const driverSteps = [
+      { num: '01', title: 'Sign up & verify', body: 'Create your driver profile and complete ID, licence and background verification to get approved.' },
+      { num: '02', title: 'Set your availability', body: 'Choose the hours, areas and trip types you want. You\u2019re always in control of your schedule.' },
+      { num: '03', title: 'Accept matches', body: 'Get matched with nearby car owners who fit your preferences and accept the jobs you want.' },
+      { num: '04', title: 'Drive & get paid', body: 'Complete trips, earn ratings and loyal clients, and receive secure weekly payouts.' }
+    ];
+
+    return {
+      ownerBtn: isOwner ? activeBtn : idleBtn,
+      driverBtn: isOwner ? idleBtn : activeBtn,
+      setOwner: () => this.setState({ audience: 'owner' }),
+      setDriver: () => this.setState({ audience: 'driver' }),
+      steps: isOwner ? ownerSteps : driverSteps,
+      faqs: this.state.faqs.map((f, i) => ({
+        q: f.q,
+        a: f.a,
+        open: this.state.open === i,
+        rot: this.state.open === i ? 'rotate(180deg)' : 'rotate(0deg)',
+        toggle: () => this.setState(s => ({ open: s.open === i ? -1 : i }))
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

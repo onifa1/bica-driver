@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: #F4EFE4; color: #12251A; font-family: 'Hanken Grotesk', sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  ::selection { background: #C8A24E; color: #0A2414; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .fu { opacity: 0; animation: fadeUp .9s cubic-bezier(.16,.84,.44,1) forwards; }
+</style>
+<script>
+(function(){
+  var EASE='cubic-bezier(.16,.84,.44,1)';
+  function init(){
+    if(window.__bicaReveal) return; window.__bicaReveal=true;
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='none'; io.unobserve(e.target); } });
+    },{threshold:0, rootMargin:'0px 0px -10% 0px'});
+    var seen=new WeakSet();
+    function scan(){
+      document.querySelectorAll('section, footer').forEach(function(el){
+        if(seen.has(el)) return; seen.add(el);
+        el.style.transition='opacity .85s '+EASE+', transform .85s '+EASE;
+        var r=el.getBoundingClientRect();
+        if(r.top < window.innerHeight*0.88){ el.style.opacity='1'; return; }
+        el.style.opacity='0'; el.style.transform='translateY(28px)';
+        io.observe(el);
+      });
+    }
+    scan();
+    var n=0, iv=setInterval(function(){ scan(); if(++n>24) clearInterval(iv); },140);
+  }
+  if(document.readyState!=='loading') init(); else document.addEventListener('DOMContentLoaded', init);
+})();
+</script>
+</helmet>
+
+<div style="position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: .035; mix-blend-mode: multiply; background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;);"></div>
+
+<!-- NAV -->
+<nav data-screen-label="Nav" style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 16px clamp(24px, 6vw, 90px); background: rgba(244,239,228,.78); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(18,37,26,.08);">
+  <a href="Bica Driver.dc.html" style="display: flex; align-items: center;"><img src="assets/bicadriver-logo.png" alt="Bica Driver" style="height: 36px; width: auto; display: block;"></a>
+  <div style="display: flex; align-items: center; gap: 30px;">
+    <a href="Bica Driver.dc.html" style="text-decoration: none; color: #2C3D31; font-size: 15px; font-weight: 500;">Home</a>
+    <a href="Bica Driver.dc.html#how" style="text-decoration: none; color: #2C3D31; font-size: 15px; font-weight: 500;">How it works</a>
+    <a href="Bica Driver.dc.html#features" style="text-decoration: none; color: #2C3D31; font-size: 15px; font-weight: 500;">Features</a>
+    <a href="Bica Driver.dc.html#safety" style="text-decoration: none; color: #2C3D31; font-size: 15px; font-weight: 500;">Safety</a>
+    <a href="About.dc.html" style="text-decoration: none; color: #0A2414; font-size: 15px; font-weight: 700;">About</a>
+    <a href="Contact.dc.html" style="text-decoration: none; color: #2C3D31; font-size: 15px; font-weight: 500;">Contact</a>
+    <a href="Bica Driver.dc.html#download" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; background: #0A2414; color: #F4EFE4; font-size: 14.5px; font-weight: 600; padding: 11px 22px; border-radius: 999px; transition: transform .2s, background .2s;" style-hover="background: #14532D; transform: translateY(-1px);">Get the app</a>
+  </div>
+</nav>
+<div style="height: 68px;"></div>
+
+<!-- HERO -->
+<header data-screen-label="About hero" style="position: relative; padding: clamp(56px, 7vw, 104px) clamp(24px, 6vw, 90px) clamp(40px, 5vw, 64px); overflow: hidden;">
+  <div style="position: absolute; top: -12%; right: -6%; width: 560px; height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(200,162,78,.16), transparent 65%); pointer-events: none;"></div>
+  <div style="max-width: 1000px; margin: 0 auto; position: relative; text-align: center;">
+    <div class="fu" style="animation-delay: .05s; font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #C8A24E; margin-bottom: 22px;">Our story</div>
+    <h1 class="fu" style="animation-delay: .12s; font-family: 'Spectral', serif; font-weight: 500; font-size: clamp(38px, 5.2vw, 72px); line-height: 1.04; letter-spacing: -.025em; color: #0A2414;">We believe every journey<br>should feel <span style="font-style: italic; color: #14532D;">safe</span>, fair and dignified.</h1>
+    <p class="fu" style="animation-delay: .2s; margin: 28px auto 0; font-size: clamp(16px, 1.4vw, 19px); line-height: 1.65; color: #44574A; max-width: 620px;">Bica Driver was born in Lagos from a simple frustration: trusting a stranger with your car shouldn't be a gamble, and skilled drivers shouldn't struggle to find honest work. We built a marketplace that respects both sides of the wheel.</p>
+  </div>
+</header>
+
+<!-- MISSION -->
+<section data-screen-label="Mission" style="padding: clamp(48px, 6vw, 96px) clamp(24px, 6vw, 90px); max-width: 1280px; margin: 0 auto;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 5vw, 80px); align-items: center;">
+    <div>
+      <div style="font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #C8A24E; margin-bottom: 16px;">Our mission</div>
+      <h2 style="font-family: 'Spectral', serif; font-weight: 500; font-size: clamp(28px, 3.4vw, 46px); line-height: 1.1; letter-spacing: -.02em; color: #0A2414; margin-bottom: 22px;">Connecting trust, one ride at a time.</h2>
+      <p style="font-size: 16.5px; line-height: 1.7; color: #44574A; margin-bottom: 18px;">For car owners, we remove the anxiety of handing over the keys. Every driver is identity verified, background checked and continuously rated. For drivers, we open the door to steady, well-paid, dignified work with clients who value their craft.</p>
+      <p style="font-size: 16.5px; line-height: 1.7; color: #44574A;">It's a marketplace built on one belief: when both sides win, everybody rides better.</p>
+    </div>
+    <div style="background: linear-gradient(150deg,#0A2414,#14532D); border-radius: 28px; padding: clamp(32px, 4vw, 52px); color: #F4EFE4; position: relative; overflow: hidden;">
+      <div style="position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; border-radius: 50%; background: rgba(200,162,78,.16);"></div>
+      <div style="font-family: 'Spectral', serif; font-style: italic; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.4; position: relative;">"Connect. Drive. Thrive."</div>
+      <p style="margin-top: 20px; font-size: 15.5px; line-height: 1.65; color: #C9D6CB; position: relative;">Three words that shape every decision we make, from how we vet a driver to how we price a trip.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section data-screen-label="Values" style="padding: clamp(48px, 6vw, 90px) clamp(24px, 6vw, 90px); max-width: 1280px; margin: 0 auto;">
+  <div style="text-align: center; margin-bottom: 50px;">
+    <div style="font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #C8A24E; margin-bottom: 16px;">What we stand for</div>
+    <h2 style="font-family: 'Spectral', serif; font-weight: 500; font-size: clamp(28px, 3.6vw, 48px); line-height: 1.08; letter-spacing: -.02em; color: #0A2414;">The values behind the wheel.</h2>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;">
+    <div style="background: #fff; border: 1px solid rgba(18,37,26,.07); border-radius: 22px; padding: 32px;">
+      <div style="width: 52px; height: 52px; border-radius: 15px; background: #0A2414; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z" fill="#C8A24E"/><path d="M8.5 12l2.3 2.3L16 9.5" stroke="#0A2414" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h3 style="font-family: 'Spectral', serif; font-size: 22px; font-weight: 600; color: #0A2414; margin-bottom: 10px;">Safety first, always</h3>
+      <p style="font-size: 15px; line-height: 1.65; color: #516256;">We screen harder than anyone in the market because trust can never be an afterthought.</p>
+    </div>
+    <div style="background: #fff; border: 1px solid rgba(18,37,26,.07); border-radius: 22px; padding: 32px;">
+      <div style="width: 52px; height: 52px; border-radius: 15px; background: #0A2414; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="#C8A24E" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <h3 style="font-family: 'Spectral', serif; font-size: 22px; font-weight: 600; color: #0A2414; margin-bottom: 10px;">Fairness for drivers</h3>
+      <p style="font-size: 15px; line-height: 1.65; color: #516256;">Drivers keep the majority of every fare and get paid on time, every time. Dignity is non-negotiable.</p>
+    </div>
+    <div style="background: #fff; border: 1px solid rgba(18,37,26,.07); border-radius: 22px; padding: 32px;">
+      <div style="width: 52px; height: 52px; border-radius: 15px; background: #0A2414; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.4" stroke="#C8A24E" stroke-width="2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5" stroke="#C8A24E" stroke-width="2" stroke-linecap="round"/><path d="M16 5a3 3 0 010 6M18 20c0-2.4-1-4-2.5-5" stroke="#C8A24E" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <h3 style="font-family: 'Spectral', serif; font-size: 22px; font-weight: 600; color: #0A2414; margin-bottom: 10px;">Community over transactions</h3>
+      <p style="font-size: 15px; line-height: 1.65; color: #516256;">Ratings, badges and loyal clients turn one off rides into lasting relationships and real careers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS (dark) -->
+<section data-screen-label="Stats" style="background: #0A2414; color: #F4EFE4; position: relative; overflow: hidden;">
+  <div style="position: absolute; inset: 0; background-image: radial-gradient(circle at 20% 30%, rgba(200,162,78,.1), transparent 42%); pointer-events: none;"></div>
+  <div style="max-width: 1280px; margin: 0 auto; padding: clamp(56px, 7vw, 96px) clamp(24px, 6vw, 90px); position: relative;">
+    <div style="text-align: center; margin-bottom: 50px;"><h2 style="font-family: 'Spectral', serif; font-weight: 500; font-size: clamp(28px, 3.4vw, 46px); letter-spacing: -.02em;">Building momentum, responsibly.</h2></div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
+      <div style="text-align: center;"><div style="font-family: 'Spectral', serif; font-size: clamp(34px,3.6vw,54px); font-weight: 600; color: #C8A24E;">12k+</div><div style="font-size: 14px; color: #B6C5B9; margin-top: 6px;">Rides matched monthly</div></div>
+      <div style="text-align: center;"><div style="font-family: 'Spectral', serif; font-size: clamp(34px,3.6vw,54px); font-weight: 600; color: #C8A24E;">4,800</div><div style="font-size: 14px; color: #B6C5B9; margin-top: 6px;">Verified drivers</div></div>
+      <div style="text-align: center;"><div style="font-family: 'Spectral', serif; font-size: clamp(34px,3.6vw,54px); font-weight: 600; color: #C8A24E;">2</div><div style="font-size: 14px; color: #B6C5B9; margin-top: 6px;">Cities live, more soon</div></div>
+      <div style="text-align: center;"><div style="font-family: 'Spectral', serif; font-size: clamp(34px,3.6vw,54px); font-weight: 600; color: #C8A24E;">4.9★</div><div style="font-size: 14px; color: #B6C5B9; margin-top: 6px;">Average rating</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section data-screen-label="CTA" style="padding: clamp(40px, 6vw, 90px) clamp(24px, 6vw, 90px);">
+  <div style="max-width: 1280px; margin: 0 auto; background: linear-gradient(140deg,#0A2414,#14532D); border-radius: 34px; padding: clamp(44px, 6vw, 80px); position: relative; overflow: hidden; text-align: center;">
+    <div style="position: absolute; top: -60px; right: 8%; width: 280px; height: 280px; border-radius: 50%; background: radial-gradient(circle, rgba(200,162,78,.22), transparent 65%);"></div>
+    <div style="position: relative;">
+      <h2 style="font-family: 'Spectral', serif; font-weight: 500; font-size: clamp(30px, 4vw, 54px); line-height: 1.06; letter-spacing: -.025em; color: #F4EFE4; max-width: 640px; margin: 0 auto;">Ready to ride with people you trust?</h2>
+      <p style="font-size: 17px; line-height: 1.6; color: #B6C5B9; margin: 20px auto 0; max-width: 460px;">Download Bica Driver and join thousands of car owners and drivers already moving better.</p>
+      <div style="display: flex; gap: 14px; margin-top: 34px; justify-content: center; flex-wrap: wrap;">
+        <a href="Bica Driver.dc.html#download" style="text-decoration: none; display: inline-flex; align-items: center; gap: 10px; background: #F4EFE4; color: #0A2414; padding: 15px 28px; border-radius: 14px; font-weight: 700; font-size: 16px; transition: transform .2s;" style-hover="transform: translateY(-2px);">Get the app</a>
+        <a href="Contact.dc.html" style="text-decoration: none; display: inline-flex; align-items: center; gap: 10px; background: rgba(244,239,228,.1); border: 1.5px solid rgba(244,239,228,.3); color: #F4EFE4; padding: 15px 28px; border-radius: 14px; font-weight: 600; font-size: 16px; transition: transform .2s;" style-hover="transform: translateY(-2px);">Talk to us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer data-screen-label="Footer" style="background: #0A2414; color: #B6C5B9; padding: clamp(56px, 7vw, 90px) clamp(24px, 6vw, 90px) 36px;">
+  <div style="max-width: 1280px; margin: 0 auto;">
+    <div style="display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 50px; border-bottom: 1px solid rgba(244,239,228,.12);">
+      <div>
+        <div style="display: inline-flex; align-items: center; background: #F4EFE4; padding: 10px 16px; border-radius: 12px; margin-bottom: 20px;"><img src="assets/bicadriver-logo.png" alt="Bica Driver" style="height: 34px; width: auto; display: block;"></div>
+        <p style="font-size: 14.5px; line-height: 1.6; max-width: 300px;">Connecting car owners with verified professional drivers across Nigeria. Connect. Drive. Thrive.</p>
+        <div style="display: flex; gap: 12px; margin-top: 24px;">
+          <a href="#" style="width: 40px; height: 40px; border-radius: 11px; background: rgba(244,239,228,.08); display: flex; align-items: center; justify-content: center; transition: background .2s;" style-hover="background: rgba(200,162,78,.2);"><svg width="18" height="18" viewBox="0 0 24 24" fill="#B6C5B9"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0022 12z"/></svg></a>
+          <a href="#" style="width: 40px; height: 40px; border-radius: 11px; background: rgba(244,239,228,.08); display: flex; align-items: center; justify-content: center; transition: background .2s;" style-hover="background: rgba(200,162,78,.2);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B6C5B9" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#B6C5B9"/></svg></a>
+          <a href="#" style="width: 40px; height: 40px; border-radius: 11px; background: rgba(244,239,228,.08); display: flex; align-items: center; justify-content: center; transition: background .2s;" style-hover="background: rgba(200,162,78,.2);"><svg width="18" height="18" viewBox="0 0 24 24" fill="#B6C5B9"><path d="M18.2 2H21l-6.4 7.3L22 22h-6l-4.7-6.1L5.9 22H3l6.8-7.8L2 2h6.2l4.2 5.6L18.2 2zm-1 18h1.6L7.9 3.7H6.1L17.2 20z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #F4EFE4; margin-bottom: 18px;">Product</div>
+        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14.5px;"><a href="Bica Driver.dc.html#features" style="color: #B6C5B9; text-decoration: none;">Features</a><a href="Bica Driver.dc.html#how" style="color: #B6C5B9; text-decoration: none;">How it works</a><a href="Bica Driver.dc.html#safety" style="color: #B6C5B9; text-decoration: none;">Safety</a><a href="Bica Driver.dc.html#download" style="color: #B6C5B9; text-decoration: none;">Download</a></div>
+      </div>
+      <div>
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #F4EFE4; margin-bottom: 18px;">For drivers</div>
+        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14.5px;"><a href="#" style="color: #B6C5B9; text-decoration: none;">Become a driver</a><a href="#" style="color: #B6C5B9; text-decoration: none;">Earnings</a><a href="#" style="color: #B6C5B9; text-decoration: none;">Driver app</a><a href="#" style="color: #B6C5B9; text-decoration: none;">Requirements</a></div>
+      </div>
+      <div>
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #F4EFE4; margin-bottom: 18px;">Company</div>
+        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14.5px;"><a href="About.dc.html" style="color: #B6C5B9; text-decoration: none;">About</a><a href="Contact.dc.html" style="color: #B6C5B9; text-decoration: none;">Contact</a><a href="#" style="color: #B6C5B9; text-decoration: none;">Privacy</a><a href="#" style="color: #B6C5B9; text-decoration: none;">Terms</a></div>
+      </div>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 28px; flex-wrap: wrap; gap: 14px; font-size: 13.5px;">
+      <span>© 2026 Bica Driver. All rights reserved.</span>
+      <span>Made in Lagos, Nigeria 🇳🇬</span>
+    </div>
+  </div>
+</footer>
+</x-dc>
+</body>
+</html>
