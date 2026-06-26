@@ -178,10 +178,15 @@ a{text-decoration:none}
 .download-title{font-family:'Spectral',serif;font-weight:500;font-size:clamp(34px,4.6vw,62px);line-height:1.04;letter-spacing:-.025em;color:#F4EFE4}
 .download-sub{font-size:17px;line-height:1.6;color:#B6C5B9;margin-top:22px;max-width:480px}
 .download-btns{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
-.btn-dl{display:inline-flex;align-items:center;gap:12px;padding:15px 26px;border-radius:14px;transition:transform .2s}
+.btn-dl{display:inline-flex;align-items:center;gap:12px;padding:15px 26px;border-radius:14px;transition:transform .2s,box-shadow .2s,background .2s,border-color .2s}
 .btn-dl:hover{transform:translateY(-2px)}
+.btn-dl span{text-align:left;line-height:1.1}
+.btn-dl span small{display:block;font-size:11px;font-weight:500;opacity:.72}
+.btn-dl span b{display:block;font-size:17px;font-weight:700}
 .btn-dl.light{background:#F4EFE4;color:#0A2414}
+.btn-dl.light:hover{box-shadow:0 10px 28px rgba(244,239,228,.22)}
 .btn-dl.ghost{background:rgba(244,239,228,.1);border:1.5px solid rgba(244,239,228,.3);color:#F4EFE4}
+.btn-dl.ghost:hover{background:rgba(244,239,228,.18);border-color:rgba(244,239,228,.55)}
 
 /* Footer */
 .footer{background:#0A2414;color:#B6C5B9;padding:clamp(56px,7vw,90px) clamp(24px,6vw,90px) 36px}
@@ -488,11 +493,11 @@ a{text-decoration:none}
       <div class="download-btns">
         <a href="#" class="btn-dl light">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="#0A2414"><path d="M16.5 1.6c0 1.2-.5 2.4-1.3 3.3-.9 1-2.3 1.7-3.5 1.6-.1-1.2.5-2.4 1.3-3.2.9-1 2.4-1.7 3.5-1.7zM20.3 17c-.6 1.4-.9 2-1.7 3.2-1.1 1.7-2.7 3.8-4.6 3.8-1.7 0-2.1-1.1-4.4-1.1s-2.8 1.1-4.4 1.1c-1.9 0-3.4-1.9-4.5-3.6-3-4.7-3.3-10.2-1.5-13.1 1.3-2.1 3.4-3.3 5.3-3.3 2 0 3.2 1.1 4.8 1.1 1.6 0 2.5-1.1 4.8-1.1 1.7 0 3.5.9 4.8 2.5-4.2 2.3-3.5 8.3.9 9.5z"/></svg>
-          <span><small style="opacity:.7">Download on the</small><b>App Store</b></span>
+          <span><small>Download on the</small><b>App Store</b></span>
         </a>
         <a href="#" class="btn-dl ghost">
           <svg width="20" height="22" viewBox="0 0 24 24"><path d="M3.6 1.8c-.3.3-.5.8-.5 1.4v17.6c0 .6.2 1.1.5 1.4l.1.1L13.5 12.4v-.2L3.7 1.7l-.1.1z" fill="#F4EFE4"/><path d="M16.8 15.8l-3.3-3.3v-.2l3.3-3.3.1.1 3.9 2.2c1.1.6 1.1 1.7 0 2.3l-4 2.2z" fill="#C8A24E"/><path d="M16.9 15.7L13.5 12.3 3.6 22.2c.4.4 1 .4 1.7.1l11.6-6.6" fill="#1F8A4C"/><path d="M16.9 8.9L5.3 2.3c-.7-.4-1.3-.3-1.7.1l9.9 9.9 3.4-3.4z" fill="#6FCB97"/></svg>
-          <span><small style="opacity:.7">Get it on</small><b>Google Play</b></span>
+          <span><small>Get it on</small><b>Google Play</b></span>
         </a>
       </div>
     </div>
