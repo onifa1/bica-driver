@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About — Bica Driver</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#F4EFE4;color:#12251A;font-family:'Hanken Grotesk',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:#C8A24E;color:#0A2414}
+a{text-decoration:none}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.fu{opacity:0;animation:fadeUp .9s cubic-bezier(.16,.84,.44,1) forwards}
+
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.035;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* Nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px clamp(24px,6vw,90px);background:rgba(244,239,228,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(18,37,26,.08)}
+.nav-logo img{height:36px;width:auto;display:block}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a{color:#2C3D31;font-size:15px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#0A2414}
+.nav-links a.active{color:#0A2414;font-weight:700}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;background:#0A2414;color:#F4EFE4!important;font-size:14.5px;font-weight:600!important;padding:11px 22px;border-radius:999px;transition:transform .2s,background .2s}
+.nav-cta:hover{background:#14532D!important;transform:translateY(-1px)}
+.nav-spacer{height:68px}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;border:none;background:none;z-index:101}
+.hamburger span{display:block;width:22px;height:2px;background:#0A2414;border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(244,239,228,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(18,37,26,.1);padding:24px clamp(24px,6vw,90px);z-index:99;flex-direction:column;gap:18px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:#2C3D31;font-size:16px;font-weight:500;padding:8px 0;border-bottom:1px solid rgba(18,37,26,.08)}
+.mobile-menu a.active{color:#0A2414;font-weight:700}
+.mobile-menu .m-cta{background:#0A2414;color:#F4EFE4!important;text-align:center;padding:14px;border-radius:14px;margin-top:6px;border:none!important;font-weight:700}
+
+.section-eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C8A24E;margin-bottom:16px}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .85s cubic-bezier(.16,.84,.44,1),transform .85s cubic-bezier(.16,.84,.44,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* Hero */
+.hero{position:relative;padding:clamp(56px,7vw,104px) clamp(24px,6vw,90px) clamp(40px,5vw,64px);overflow:hidden}
+.hero-bg{position:absolute;top:-12%;right:-6%;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(200,162,78,.16),transparent 65%);pointer-events:none}
+.hero-inner{max-width:1000px;margin:0 auto;position:relative;text-align:center}
+.hero h1{font-family:'Spectral',serif;font-weight:500;font-size:clamp(38px,5.2vw,72px);line-height:1.04;letter-spacing:-.025em;color:#0A2414}
+.hero h1 em{font-style:italic;color:#14532D}
+.hero-sub{margin:28px auto 0;font-size:clamp(16px,1.4vw,19px);line-height:1.65;color:#44574A;max-width:620px}
+
+/* Mission */
+.mission{padding:clamp(48px,6vw,96px) clamp(24px,6vw,90px);max-width:1280px;margin:0 auto}
+.mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,80px);align-items:center}
+.mission h2{font-family:'Spectral',serif;font-weight:500;font-size:clamp(28px,3.4vw,46px);line-height:1.1;letter-spacing:-.02em;color:#0A2414;margin-bottom:22px}
+.mission p{font-size:16.5px;line-height:1.7;color:#44574A;margin-bottom:18px}
+.mission p:last-child{margin-bottom:0}
+.mission-quote{background:linear-gradient(150deg,#0A2414,#14532D);border-radius:28px;padding:clamp(32px,4vw,52px);color:#F4EFE4;position:relative;overflow:hidden}
+.mission-quote-bg{position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(200,162,78,.16)}
+.mission-quote blockquote{font-family:'Spectral',serif;font-style:italic;font-size:clamp(22px,2.4vw,30px);line-height:1.4;position:relative}
+.mission-quote p{margin-top:20px;font-size:15.5px;line-height:1.65;color:#C9D6CB;position:relative}
+
+/* Values */
+.values{padding:clamp(48px,6vw,90px) clamp(24px,6vw,90px);max-width:1280px;margin:0 auto}
+.values-title{font-family:'Spectral',serif;font-weight:500;font-size:clamp(28px,3.6vw,48px);line-height:1.08;letter-spacing:-.02em;color:#0A2414}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:0}
+.value-card{background:#fff;border:1px solid rgba(18,37,26,.07);border-radius:22px;padding:32px}
+.value-icon{width:52px;height:52px;border-radius:15px;background:#0A2414;display:flex;align-items:center;justify-content:center;margin-bottom:22px}
+.value-card h3{font-family:'Spectral',serif;font-size:22px;font-weight:600;color:#0A2414;margin-bottom:10px}
+.value-card p{font-size:15px;line-height:1.65;color:#516256}
+
+/* Stats dark */
+.stats-dark{background:#0A2414;color:#F4EFE4;position:relative;overflow:hidden}
+.stats-dark-bg{position:absolute;inset:0;background-image:radial-gradient(circle at 20% 30%,rgba(200,162,78,.1),transparent 42%);pointer-events:none}
+.stats-dark-inner{max-width:1280px;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(24px,6vw,90px);position:relative}
+.stats-dark h2{font-family:'Spectral',serif;font-weight:500;font-size:clamp(28px,3.4vw,46px);letter-spacing:-.02em;text-align:center;margin-bottom:50px}
+.stats-dark-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.stat-big{text-align:center}
+.stat-big-num{font-family:'Spectral',serif;font-size:clamp(34px,3.6vw,54px);font-weight:600;color:#C8A24E}
+.stat-big-label{font-size:14px;color:#B6C5B9;margin-top:6px}
+
+/* CTA */
+.cta{padding:clamp(40px,6vw,90px) clamp(24px,6vw,90px)}
+.cta-inner{max-width:1280px;margin:0 auto;background:linear-gradient(140deg,#0A2414,#14532D);border-radius:34px;padding:clamp(44px,6vw,80px);position:relative;overflow:hidden;text-align:center}
+.cta-blob{position:absolute;top:-60px;right:8%;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(200,162,78,.22),transparent 65%)}
+.cta-inner h2{font-family:'Spectral',serif;font-weight:500;font-size:clamp(30px,4vw,54px);line-height:1.06;letter-spacing:-.025em;color:#F4EFE4;max-width:640px;margin:0 auto;position:relative}
+.cta-inner p{font-size:17px;line-height:1.6;color:#B6C5B9;margin:20px auto 0;max-width:460px;position:relative}
+.cta-btns{display:flex;gap:14px;margin-top:34px;justify-content:center;flex-wrap:wrap;position:relative}
+.btn-cta{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;border-radius:14px;font-weight:700;font-size:16px;transition:transform .2s}
+.btn-cta:hover{transform:translateY(-2px)}
+.btn-cta.light{background:#F4EFE4;color:#0A2414}
+.btn-cta.ghost{background:rgba(244,239,228,.1);border:1.5px solid rgba(244,239,228,.3);color:#F4EFE4;font-weight:600}
+
+/* Footer */
+.footer{background:#0A2414;color:#B6C5B9;padding:clamp(56px,7vw,90px) clamp(24px,6vw,90px) 36px}
+.footer-inner{max-width:1280px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;padding-bottom:50px;border-bottom:1px solid rgba(244,239,228,.12)}
+.footer-logo-wrap{display:inline-flex;align-items:center;background:#F4EFE4;padding:10px 16px;border-radius:12px;margin-bottom:20px}
+.footer-logo-wrap img{height:34px;width:auto;display:block}
+.footer-desc{font-size:14.5px;line-height:1.6;max-width:300px}
+.footer-socials{display:flex;gap:12px;margin-top:24px}
+.social-btn{width:40px;height:40px;border-radius:11px;background:rgba(244,239,228,.08);display:flex;align-items:center;justify-content:center;transition:background .2s}
+.social-btn:hover{background:rgba(200,162,78,.2)}
+.footer-col-title{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F4EFE4;margin-bottom:18px}
+.footer-links{display:flex;flex-direction:column;gap:12px;font-size:14.5px}
+.footer-links a{color:#B6C5B9;transition:color .2s}
+.footer-links a:hover{color:#F4EFE4}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:28px;flex-wrap:wrap;gap:14px;font-size:13.5px}
+
+@media(max-width:1024px){
+  .mission-grid{grid-template-columns:1fr}
+  .values-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-dark-grid{grid-template-columns:repeat(2,1fr);gap:32px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .values-grid{grid-template-columns:1fr}
+  .cta-btns{flex-direction:column;align-items:center}
+  .footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="assets/bicadriver-logo.png" alt="Bica Driver"></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#how">How it works</a>
+    <a href="index.html#features">Features</a>
+    <a href="index.html#safety">Safety</a>
+    <a href="about.html" class="active">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="index.html#download" class="nav-cta">Get the app</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="index.html#how">How it works</a>
+  <a href="index.html#features">Features</a>
+  <a href="index.html#safety">Safety</a>
+  <a href="about.html" class="active">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="index.html#download" class="m-cta">Get the app</a>
+</div>
+<div class="nav-spacer"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="section-eyebrow fu" style="animation-delay:.05s">Our story</div>
+    <h1 class="fu" style="animation-delay:.12s">We believe every journey<br>should feel <em>safe</em>, fair and dignified.</h1>
+    <p class="hero-sub fu" style="animation-delay:.2s">Bica Driver was born in Lagos from a simple frustration: trusting a stranger with your car shouldn't be a gamble, and skilled drivers shouldn't struggle to find honest work. We built a marketplace that respects both sides of the wheel.</p>
+  </div>
+</header>
+
+<!-- MISSION -->
+<section class="mission reveal">
+  <div class="mission-grid">
+    <div>
+      <div class="section-eyebrow">Our mission</div>
+      <h2>Connecting trust, one ride at a time.</h2>
+      <p>For car owners, we remove the anxiety of handing over the keys. Every driver is identity verified, background checked and continuously rated. For drivers, we open the door to steady, well-paid, dignified work with clients who value their craft.</p>
+      <p>It's a marketplace built on one belief: when both sides win, everybody rides better.</p>
+    </div>
+    <div class="mission-quote">
+      <div class="mission-quote-bg"></div>
+      <blockquote>"Connect. Drive. Thrive."</blockquote>
+      <p>Three words that shape every decision we make, from how we vet a driver to how we price a trip.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values reveal">
+  <div style="text-align:center;margin-bottom:50px">
+    <div class="section-eyebrow">What we stand for</div>
+    <h2 class="values-title">The values behind the wheel.</h2>
+  </div>
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 3v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3z" fill="#C8A24E"/><path d="M8.5 12l2.3 2.3L16 9.5" stroke="#0A2414" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h3>Safety first, always</h3>
+      <p>We screen harder than anyone in the market because trust can never be an afterthought.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" stroke="#C8A24E" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <h3>Fairness for drivers</h3>
+      <p>Drivers keep the majority of every fare and get paid on time, every time. Dignity is non-negotiable.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.4" stroke="#C8A24E" stroke-width="2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5" stroke="#C8A24E" stroke-width="2" stroke-linecap="round"/><path d="M16 5a3 3 0 010 6M18 20c0-2.4-1-4-2.5-5" stroke="#C8A24E" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <h3>Community over transactions</h3>
+      <p>Ratings, badges and loyal clients turn one off rides into lasting relationships and real careers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS DARK -->
+<section class="stats-dark reveal">
+  <div class="stats-dark-bg"></div>
+  <div class="stats-dark-inner">
+    <h2>Building momentum, responsibly.</h2>
+    <div class="stats-dark-grid">
+      <div class="stat-big"><div class="stat-big-num">12k+</div><div class="stat-big-label">Rides matched monthly</div></div>
+      <div class="stat-big"><div class="stat-big-num">4,800</div><div class="stat-big-label">Verified drivers</div></div>
+      <div class="stat-big"><div class="stat-big-num">2</div><div class="stat-big-label">Cities live, more soon</div></div>
+      <div class="stat-big"><div class="stat-big-num">4.9★</div><div class="stat-big-label">Average rating</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta reveal">
+  <div class="cta-inner">
+    <div class="cta-blob"></div>
+    <h2>Ready to ride with people you trust?</h2>
+    <p>Download Bica Driver and join thousands of car owners and drivers already moving better.</p>
+    <div class="cta-btns">
+      <a href="index.html#download" class="btn-cta light">Get the app</a>
+      <a href="contact.html" class="btn-cta ghost">Talk to us</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-wrap"><img src="assets/bicadriver-logo.png" alt="Bica Driver"></div>
+        <p class="footer-desc">Connecting car owners with verified professional drivers across Nigeria. Connect. Drive. Thrive.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#B6C5B9"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0022 12z"/></svg></a>
+          <a href="#" class="social-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B6C5B9" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#B6C5B9"/></svg></a>
+          <a href="#" class="social-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#B6C5B9"><path d="M18.2 2H21l-6.4 7.3L22 22h-6l-4.7-6.1L5.9 22H3l6.8-7.8L2 2h6.2l4.2 5.6L18.2 2zm-1 18h1.6L7.9 3.7H6.1L17.2 20z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Product</div>
+        <div class="footer-links">
+          <a href="index.html#features">Features</a>
+          <a href="index.html#how">How it works</a>
+          <a href="index.html#safety">Safety</a>
+          <a href="index.html#download">Download</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">For drivers</div>
+        <div class="footer-links">
+          <a href="#">Become a driver</a>
+          <a href="#">Earnings</a>
+          <a href="#">Driver app</a>
+          <a href="#">Requirements</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Bica Driver. All rights reserved.</span>
+      <span>Made in Lagos, Nigeria 🇳🇬</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+});
+
+(function(){
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if(r.top < window.innerHeight * 0.9) { el.classList.add('in'); return; }
+    io.observe(el);
+  });
+})();
+</script>
+</body>
+</html>

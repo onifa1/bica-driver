@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Bica Driver</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#F4EFE4;color:#12251A;font-family:'Hanken Grotesk',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:#C8A24E;color:#0A2414}
+a{text-decoration:none}
+input::placeholder,textarea::placeholder{color:#95A498}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.fu{opacity:0;animation:fadeUp .9s cubic-bezier(.16,.84,.44,1) forwards}
+
+.grain{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.035;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* Nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px clamp(24px,6vw,90px);background:rgba(244,239,228,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(18,37,26,.08)}
+.nav-logo img{height:36px;width:auto;display:block}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a{color:#2C3D31;font-size:15px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#0A2414}
+.nav-links a.active{color:#0A2414;font-weight:700}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;background:#0A2414;color:#F4EFE4!important;font-size:14.5px;font-weight:600!important;padding:11px 22px;border-radius:999px;transition:transform .2s,background .2s}
+.nav-cta:hover{background:#14532D!important;transform:translateY(-1px)}
+.nav-spacer{height:68px}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;border:none;background:none;z-index:101}
+.hamburger span{display:block;width:22px;height:2px;background:#0A2414;border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(244,239,228,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(18,37,26,.1);padding:24px clamp(24px,6vw,90px);z-index:99;flex-direction:column;gap:18px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:#2C3D31;font-size:16px;font-weight:500;padding:8px 0;border-bottom:1px solid rgba(18,37,26,.08)}
+.mobile-menu a.active{color:#0A2414;font-weight:700}
+.mobile-menu .m-cta{background:#0A2414;color:#F4EFE4!important;text-align:center;padding:14px;border-radius:14px;margin-top:6px;border:none!important;font-weight:700}
+
+.section-eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C8A24E;margin-bottom:16px}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .85s cubic-bezier(.16,.84,.44,1),transform .85s cubic-bezier(.16,.84,.44,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* Hero */
+.hero{position:relative;padding:clamp(52px,6vw,88px) clamp(24px,6vw,90px) clamp(20px,3vw,36px);overflow:hidden}
+.hero-bg{position:absolute;top:-12%;left:-6%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(200,162,78,.14),transparent 65%);pointer-events:none}
+.hero-inner{max-width:1280px;margin:0 auto;position:relative}
+.hero h1{font-family:'Spectral',serif;font-weight:500;font-size:clamp(36px,5vw,66px);line-height:1.04;letter-spacing:-.025em;color:#0A2414;max-width:720px}
+.hero-sub{margin-top:22px;font-size:clamp(16px,1.4vw,19px);line-height:1.6;color:#44574A;max-width:540px}
+
+/* Contact section */
+.contact-section{padding:clamp(28px,4vw,56px) clamp(24px,6vw,90px) clamp(56px,7vw,100px);max-width:1280px;margin:0 auto}
+.contact-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(32px,4vw,64px);align-items:start}
+
+/* Info column */
+.info-col{display:flex;flex-direction:column;gap:16px}
+.info-card{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid rgba(18,37,26,.07);border-radius:18px;padding:22px}
+.info-icon{width:46px;height:46px;flex-shrink:0;border-radius:13px;background:rgba(31,138,76,.1);display:flex;align-items:center;justify-content:center}
+.info-label{font-size:13px;font-weight:700;color:#6B7A70;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.info-main{font-size:16px;font-weight:600;color:#0A2414}
+.info-sub{font-size:14px;color:#516256;margin-top:2px}
+.driver-callout{background:linear-gradient(150deg,#0A2414,#14532D);border-radius:18px;padding:24px;color:#F4EFE4}
+.driver-callout h3{font-family:'Spectral',serif;font-size:20px;font-weight:600;margin-bottom:8px}
+.driver-callout p{font-size:14.5px;line-height:1.6;color:#C9D6CB;margin-bottom:16px}
+.driver-callout a{display:inline-flex;align-items:center;gap:8px;background:#C8A24E;color:#0A2414;font-weight:700;font-size:14.5px;padding:11px 20px;border-radius:999px;transition:transform .2s}
+.driver-callout a:hover{transform:translateY(-1px)}
+
+/* Form */
+.form-card{background:#fff;border:1px solid rgba(18,37,26,.08);border-radius:26px;padding:clamp(28px,3.5vw,48px);box-shadow:0 30px 60px -30px rgba(10,36,20,.25)}
+.form-card h2{font-family:'Spectral',serif;font-size:clamp(24px,2.6vw,32px);font-weight:600;color:#0A2414;margin-bottom:8px}
+.form-card > p{font-size:15px;color:#516256;margin-bottom:28px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+.form-group{margin-bottom:18px}
+.form-label{display:block;font-size:13.5px;font-weight:600;color:#2C3D31;margin-bottom:8px}
+.form-input{width:100%;font-family:inherit;font-size:15px;color:#0A2414;padding:13px 15px;border:1.5px solid rgba(18,37,26,.14);border-radius:12px;background:#FBF9F3;outline:none;transition:border-color .2s}
+.form-input:focus{border-color:#14532D}
+textarea.form-input{resize:vertical}
+.role-chips{display:flex;gap:10px;flex-wrap:wrap}
+.chip-btn{font-family:inherit;cursor:pointer;font-size:14.5px;font-weight:600;padding:11px 20px;border-radius:999px;transition:all .2s;background:#fff;color:#2C3D31;border:1.5px solid rgba(18,37,26,.16)}
+.chip-btn.active{background:#0A2414;color:#F4EFE4;border-color:#0A2414}
+.submit-btn{width:100%;font-family:inherit;cursor:pointer;border:none;background:#0A2414;color:#F4EFE4;font-weight:700;font-size:16px;padding:16px;border-radius:14px;transition:background .2s;margin-top:8px}
+.submit-btn:hover{background:#14532D}
+.form-note{font-size:13px;color:#7A897E;text-align:center;margin-top:16px}
+
+/* Success state */
+.success-state{text-align:center;padding:40px 12px;display:none}
+.success-state.show{display:block}
+.success-icon{width:72px;height:72px;border-radius:50%;background:rgba(31,138,76,.12);display:flex;align-items:center;justify-content:center;margin:0 auto 24px}
+.success-state h3{font-family:'Spectral',serif;font-size:28px;font-weight:600;color:#0A2414;margin-bottom:12px}
+.success-state p{font-size:16px;line-height:1.6;color:#44574A;max-width:360px;margin:0 auto 26px}
+.success-state button{font-family:inherit;cursor:pointer;border:1.5px solid rgba(10,36,20,.2);background:#fff;color:#0A2414;font-weight:600;font-size:15px;padding:12px 24px;border-radius:12px;transition:background .2s}
+.success-state button:hover{background:#F4EFE4}
+
+/* Footer */
+.footer{background:#0A2414;color:#B6C5B9;padding:clamp(56px,7vw,90px) clamp(24px,6vw,90px) 36px}
+.footer-inner{max-width:1280px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;padding-bottom:50px;border-bottom:1px solid rgba(244,239,228,.12)}
+.footer-logo-wrap{display:inline-flex;align-items:center;background:#F4EFE4;padding:10px 16px;border-radius:12px;margin-bottom:20px}
+.footer-logo-wrap img{height:34px;width:auto;display:block}
+.footer-desc{font-size:14.5px;line-height:1.6;max-width:300px}
+.footer-socials{display:flex;gap:12px;margin-top:24px}
+.social-btn{width:40px;height:40px;border-radius:11px;background:rgba(244,239,228,.08);display:flex;align-items:center;justify-content:center;transition:background .2s}
+.social-btn:hover{background:rgba(200,162,78,.2)}
+.footer-col-title{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#F4EFE4;margin-bottom:18px}
+.footer-links{display:flex;flex-direction:column;gap:12px;font-size:14.5px}
+.footer-links a{color:#B6C5B9;transition:color .2s}
+.footer-links a:hover{color:#F4EFE4}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:28px;flex-wrap:wrap;gap:14px;font-size:13.5px}
+
+@media(max-width:1024px){
+  .contact-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .form-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><img src="assets/bicadriver-logo.png" alt="Bica Driver"></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#how">How it works</a>
+    <a href="index.html#features">Features</a>
+    <a href="index.html#safety">Safety</a>
+    <a href="about.html">About</a>
+    <a href="contact.html" class="active">Contact</a>
+    <a href="index.html#download" class="nav-cta">Get the app</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="index.html#how">How it works</a>
+  <a href="index.html#features">Features</a>
+  <a href="index.html#safety">Safety</a>
+  <a href="about.html">About</a>
+  <a href="contact.html" class="active">Contact</a>
+  <a href="index.html#download" class="m-cta">Get the app</a>
+</div>
+<div class="nav-spacer"></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="section-eyebrow fu" style="animation-delay:.05s">Get in touch</div>
+    <h1 class="fu" style="animation-delay:.12s">We'd love to hear<br>from you.</h1>
+    <p class="hero-sub fu" style="animation-delay:.2s">Whether you're a car owner, a driver, or a partner. Our Lagos team usually replies within one business day.</p>
+  </div>
+</header>
+
+<!-- CONTACT GRID -->
+<section class="contact-section reveal">
+  <div class="contact-grid">
+    <!-- Info -->
+    <div class="info-col">
+      <div class="info-card">
+        <div class="info-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14532D" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7l8 6 8-6"/></svg></div>
+        <div>
+          <div class="info-label">Email</div>
+          <div class="info-main">hello@bicadriver.com</div>
+          <div class="info-sub">support@bicadriver.com</div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 5.5C3 4.7 3.7 4 4.5 4h2.6c.6 0 1.2.4 1.4 1l1 3c.2.6 0 1.2-.5 1.6L7.8 11c1 2 2.7 3.7 4.7 4.7l1.4-1.7c.4-.5 1-.7 1.6-.5l3 1c.6.2 1 .8 1 1.4v2.6c0 .8-.7 1.5-1.5 1.5C10.6 20.5 3 12.9 3 5.5z" fill="#14532D"/></svg></div>
+        <div>
+          <div class="info-label">Phone</div>
+          <div class="info-main">+234 800 242 2374</div>
+          <div class="info-sub">Mon to Sat, 8am to 8pm WAT</div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#14532D" stroke-width="2"><path d="M12 21s-7-4.5-7-10a7 7 0 0114 0c0 5.5-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/></svg></div>
+        <div>
+          <div class="info-label">Office</div>
+          <div class="info-main">Victoria Island, Lagos</div>
+          <div class="info-sub">Nigeria</div>
+        </div>
+      </div>
+      <div class="driver-callout">
+        <h3>Are you a driver?</h3>
+        <p>Join thousands earning steady income on Bica. Download the app to get started.</p>
+        <a href="index.html#download">Become a driver</a>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="form-card">
+      <!-- Success state -->
+      <div class="success-state" id="success-state">
+        <div class="success-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1F8A4C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Message sent!</h3>
+        <p>Thanks for reaching out. Our team will get back to you within one business day.</p>
+        <button onclick="resetForm()">Send another</button>
+      </div>
+
+      <!-- Form state -->
+      <div id="form-state">
+        <h2>Send us a message</h2>
+        <p>Fill in the form and we'll be in touch shortly.</p>
+        <div class="form-row">
+          <div>
+            <label class="form-label">Full name</label>
+            <input type="text" class="form-input" placeholder="Ada Obi" id="field-name">
+          </div>
+          <div>
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="ada@email.com" id="field-email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">I am a…</label>
+          <div class="role-chips">
+            <button class="chip-btn active" onclick="setRole(this,'owner')">Car owner</button>
+            <button class="chip-btn" onclick="setRole(this,'driver')">Driver</button>
+            <button class="chip-btn" onclick="setRole(this,'other')">Partner / other</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-input" placeholder="How can we help?" rows="5" id="field-message"></textarea>
+        </div>
+        <button class="submit-btn" onclick="submitForm()">Send message</button>
+        <p class="form-note">By submitting, you agree to our Privacy Policy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-wrap"><img src="assets/bicadriver-logo.png" alt="Bica Driver"></div>
+        <p class="footer-desc">Connecting car owners with verified professional drivers across Nigeria. Connect. Drive. Thrive.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#B6C5B9"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0022 12z"/></svg></a>
+          <a href="#" class="social-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#B6C5B9" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#B6C5B9"/></svg></a>
+          <a href="#" class="social-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="#B6C5B9"><path d="M18.2 2H21l-6.4 7.3L22 22h-6l-4.7-6.1L5.9 22H3l6.8-7.8L2 2h6.2l4.2 5.6L18.2 2zm-1 18h1.6L7.9 3.7H6.1L17.2 20z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Product</div>
+        <div class="footer-links">
+          <a href="index.html#features">Features</a>
+          <a href="index.html#how">How it works</a>
+          <a href="index.html#safety">Safety</a>
+          <a href="index.html#download">Download</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">For drivers</div>
+        <div class="footer-links">
+          <a href="#">Become a driver</a>
+          <a href="#">Earnings</a>
+          <a href="#">Driver app</a>
+          <a href="#">Requirements</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Bica Driver. All rights reserved.</span>
+      <span>Made in Lagos, Nigeria 🇳🇬</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  });
+});
+
+(function(){
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0, rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if(r.top < window.innerHeight * 0.9) { el.classList.add('in'); return; }
+    io.observe(el);
+  });
+})();
+
+function setRole(btn, role){
+  document.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function submitForm(){
+  document.getElementById('form-state').style.display = 'none';
+  document.getElementById('success-state').classList.add('show');
+}
+
+function resetForm(){
+  document.getElementById('field-name').value = '';
+  document.getElementById('field-email').value = '';
+  document.getElementById('field-message').value = '';
+  document.querySelectorAll('.chip-btn').forEach((b,i) => b.classList.toggle('active', i===0));
+  document.getElementById('success-state').classList.remove('show');
+  document.getElementById('form-state').style.display = '';
+}
+</script>
+</body>
+</html>
